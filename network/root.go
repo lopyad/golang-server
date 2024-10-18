@@ -1,15 +1,21 @@
 package network
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"golang-server/service"
+)
 
 type Network struct {
-	engine *gin.Engine
+	engine  *gin.Engine
+	service *service.Service
 }
 
-func NewNetwork() *Network {
+func NewNetwork(service *service.Service) *Network {
 	r := &Network{
-		engine: gin.New(),
+		engine:  gin.New(),
+		service: service,
 	}
+	newUserRouter(r, service.User)
 
 	return r
 }
